@@ -31,7 +31,7 @@ library(readxl)
 # Загрузка и преобразование данных
 
 ```{r data, include=TRUE}
-pima <- read_excel(path = '/home/ruugi/biostat/hw_3/pima.xlsx')
+pima <- read_excel(path = 'pima.xlsx')
 
 pima <- pima %>%
     mutate_at(vars(diabetes), as.factor)

@@ -375,7 +375,7 @@ h1, h2{
 </style>
 <div id="загрузка-и-преобразование-данных" class="section level1">
 <h1>Загрузка и преобразование данных</h1>
-<pre class="r"><code>pima &lt;- read_excel(path = &#39;/home/ruugi/biostat/hw_3/pima.xlsx&#39;)
+<pre class="r"><code>pima &lt;- read_excel(path = &#39;pima.xlsx&#39;)
 
 pima &lt;- pima %&gt;%
     mutate_at(vars(diabetes), as.factor)</code></pre>
