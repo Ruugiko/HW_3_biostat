@@ -109,3 +109,41 @@ pedigree_interval
 ```
 
 ## 4. Постройте график плотности вероятности для переменной glucose и отметьте на нем среднее значение. Для той же переменной постройте гистограмму. Постройте два ящика с усами для значений pos и neg соответственно переменной diabetes
+
+```{r dens, include=TRUE}
+dens <- ggplot(data = pima) +
+  geom_density(aes(glucose)) +
+  geom_vline(xintercept = mean(pima$glucose), color = 'red') +
+  labs(title = "График плотности вероятности glucose")
+print(dens)
+```
+
+```{r hist, include=TRUE}
+hist_gl <- hist(pima$glucose,
+  breaks = 50,
+  main = "Распределение глюкозы",
+  xlab = "glucose")
+
+print(hist_gl)
+```
+
+```{r boxplot, include=TRUE}
+box <- ggplot(data = pima) +
+  geom_boxplot(aes(diabetes, glucose, fill = diabetes)) +
+  labs(title = "Распределение наличия диабета")
+print(box)
+```
+
+## 5. Постройте на одном графике две диаграммы рассеяния для наличия или отсутствия диабета. По оси X представьте значения обхвата трицепса, а по оси Y — массу тела. Выполните окрашивание, заливку и группирование по переменной diabetes.
+
+```{r facet, include=TRUE}
+facet <- ggplot(data = pima) +
+  geom_point(aes(x = triceps, y = mass, fill = diabetes, color = diabetes)) +
+  facet_grid(. ~ diabetes) + 
+  labs(title = "Диаграмма рассеяния диабета", 
+       x = "Обхват трицепса", y = "Масса тела") +
+  scale_color_manual(values = c("red", "blue")) +
+  theme_light()
+
+print(facet)
+```
