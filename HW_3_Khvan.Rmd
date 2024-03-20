@@ -141,10 +141,12 @@ print(box)
 pima_clean <- subset(pima, triceps != 0 & mass != 0)
 # Построение графика
 facet <- ggplot(data = pima_clean,
-                aes(x = triceps, y = mass, color = diabetes)) +
-  geom_point() +
-  facet_grid(. ~ diabetes) + 
-  labs(title = "Диаграмма рассеяния диабета", 
+                aes(x = triceps, y = mass)) +
+  geom_point(color = "black", shape = 21, size = 4,
+             aes(fill = factor(pima_clean$diabetes))) +
+  scale_fill_manual(values = c("pink", "lightgreen")) +
+  facet_grid(. ~ diabetes) +
+  labs(title = "Диаграмма рассеяния диабета",
        x = "Обхват трицепса", y = "Масса тела") +
   theme_light()
 
