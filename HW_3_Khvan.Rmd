@@ -32,7 +32,7 @@ library(readxl)
 
 ```{r data, include=TRUE}
 pima <- read_excel(path = 'pima.xlsx')
-
+pima <- na.omit(pima)
 pima <- pima %>%
     mutate_at(vars(diabetes), as.factor)
 ```
@@ -137,12 +137,15 @@ print(box)
 ## 5. Постройте на одном графике две диаграммы рассеяния для наличия или отсутствия диабета. По оси X представьте значения обхвата трицепса, а по оси Y — массу тела. Выполните окрашивание, заливку и группирование по переменной diabetes.
 
 ```{r facet, include=TRUE}
-facet <- ggplot(data = pima) +
-  geom_point(aes(x = triceps, y = mass, fill = diabetes, color = diabetes)) +
+# Удаление строк, где обхват трицепса или масса тела равны нулю
+pima_clean <- subset(pima, triceps != 0 & mass != 0)
+# Построение графика
+facet <- ggplot(data = pima_clean,
+                aes(x = triceps, y = mass, color = diabetes)) +
+  geom_point() +
   facet_grid(. ~ diabetes) + 
   labs(title = "Диаграмма рассеяния диабета", 
        x = "Обхват трицепса", y = "Масса тела") +
-  scale_color_manual(values = c("red", "blue")) +
   theme_light()
 
 print(facet)
